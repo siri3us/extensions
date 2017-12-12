@@ -2,21 +2,27 @@
 #include <iostream>
 #include <fstream>
 
+// Методы модуля
+
+static PyObject* spam_system(PyObject* self, PyObject* args);
+
 static PyMethodDef SpamMethods[] = {
     {"system", spam_system, METH_VARARGS, "Execute a shell command."},
     {NULL, NULL, 0, NULL}
 };
 
 
+const char *spam_doc = "This is spam module";
+
 static struct PyModuleDef spammodule = {
     PyModuleDef_Head_INIT,
-    "spam", 
-    spam_doc,
+    "spam",   // Название модуля
+    spam_doc, // Документация модуля
     -1
 };
 
 
-static PyObject* SpamError;
+static PyObject* SpamError; // Статический указатель на исключение SpamError 
 
 
 PyMODINIT_FUNC
@@ -26,7 +32,7 @@ PyInit_spam(void)
     m = PyModule_Create(&spammodule);
     if (m == NULL)
         return NULL;
-    SpamError = PyErr_NewException("spam.error", NULL, NULL);
+    SpamError = PyErr_NewException("spam.error", NULL, NULL);  // Создание исключения
     Py_INCREF(SpamError);
     PyModule_AddObject(m, "error", SpamError);
     return m;
