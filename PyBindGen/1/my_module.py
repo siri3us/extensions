@@ -1,0 +1,3 @@
+import MyModule
+
+MyModule.MyModuleDoAction()
